@@ -24,6 +24,7 @@ app/src/main/resources/models/*
 # Captures (runtime test images)
 app/src/test/resources/captures/*
 !app/src/test/resources/captures/.gitkeep
+app/captures/*
 
 app/bin
 

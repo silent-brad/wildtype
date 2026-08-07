@@ -9,7 +9,7 @@ import org.opencv.videoio.VideoCapture;
 public class CaptureLoop implements AutoCloseable {
 
     static {
-        OpenCV.loadShared();
+        OpenCV.loadLocally();
     }
 
     private final VideoCapture camera;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wildtype Dashboard</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        h1 { margin-bottom: 0.5rem; }
+        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; background: #e5e7eb; margin: 0.25rem; font-size: 0.875rem; }
+        .card { border: 1px solid #d1d5db; border-radius: 0.5rem; padding: 1rem; margin: 0.5rem 0; display: flex; gap: 1rem; align-items: flex-start; }
+        .card img { width: 160px; height: 120px; object-fit: cover; border-radius: 0.25rem; flex-shrink: 0; }
+        .card-body { flex: 1; }
+        .meta { color: #6b7280; font-size: 0.875rem; margin-top: 0.5rem; }
+        .species { font-weight: 600; font-size: 1.125rem; }
+        .confidence { color: #059669; }
+        #sightings { margin-top: 1rem; }
+        .empty { color: #9ca3af; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>Wildtype Dashboard</h1>
+    <p>Live sightings from your backyard.</p>
+
+    <div id="counts">
+        <span th:each="entry : ${counts}" class="badge" th:text="${entry.key} + ': ' + ${entry.value}">Bird: 3</span>
+    </div>
+
+    <div id="sightings">
+        <p th:if="${sightings.isEmpty()}" class="empty">No sightings yet. Motion will trigger detection.</p>
+        <div th:each="s : ${sightings}" class="card" th:id="'sighting-' + ${s.id()}">
+            <img th:src="${s.imagePath()}" alt="sighting" onerror="this.style.display='none'"/>
+            <div class="card-body">
+                <div class="species" th:text="${s.species()}">Bird</div>
+                <div class="meta">
+                    <span class="confidence" th:text="${#numbers.formatDecimal(s.confidence() * 100, 0, 0)} + '%'">91%</span>
+                    &mdash;
+                    <span th:text="${s.detectedAt()}">2026-08-07T14:23:01Z</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const es = new EventSource('/api/sightings/stream');
+        es.onmessage = (e) => {
+            const container = document.getElementById('sightings');
+            const empty = container.querySelector('.empty');
+            if (empty) empty.remove();
+            container.insertAdjacentHTML('afterbegin', e.data);
+        };
+        es.onerror = () => {
+            console.log('SSE error, reconnecting...');
+        };
+    </script>
+</body>
+</html>
