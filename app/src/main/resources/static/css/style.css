@@ -1,0 +1,88 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+  margin: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.card {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.card img {
+  width: 160px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+}
+
+.card-body {
+  flex: 1;
+}
+
+.card a {
+  text-decoration: none;
+  color: inherit;
+  display: contents;
+}
+
+.meta {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.species {
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.confidence {
+  color: #059669;
+}
+
+#sightings {
+  margin-top: 1rem;
+}
+
+.empty {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.detail-image {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
