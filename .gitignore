@@ -1,8 +1,38 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
 
-# Ignore Gradle build output directory
-build
+# Java
+*.class
+*.jar
+*.war
+*.ear
 
-# Ignore Kotlin plugin data
-.kotlin
+# Spring Boot
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
+
+# OpenCV / ONNX / Model artifacts
+app/src/main/resources/models/*
+!app/src/main/resources/models/.gitkeep
+
+# Captures (runtime test images)
+app/src/test/resources/captures/*
+!app/src/test/resources/captures/.gitkeep
+
+app/bin
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Notes (project planning, not source)
+notes/

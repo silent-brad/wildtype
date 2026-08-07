@@ -1,14 +1,25 @@
 plugins {
     id 'java'
+    id 'application'
     id 'org.springframework.boot' version '3.4.2'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'com.diffplug.spotless' version '6.25.0'
 }
 
 group = 'bio'
 version = '1.0.0'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_26
+    targetCompatibility = JavaVersion.VERSION_26
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['--enable-preview']
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += ['--enable-preview']
 }
 
 repositories {
@@ -34,11 +45,22 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+application {
+    mainClass = 'org.wildtype.App'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
 
 // Optional: JVM args for JEP 489 Vector API (stretch goal)
+spotless {
+    java {
+        palantirJavaFormat('2.97.0')
+        formatAnnotations()
+    }
+}
+
 tasks.named('bootRun') {
-    jvmArgs = ['--add-modules', 'jdk.incubator.vector']
+    jvmArgs = ['--enable-preview', '--add-modules', 'jdk.incubator.vector']
 }
