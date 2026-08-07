@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'bio'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // Database
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    runtimeOnly 'org.xerial:sqlite-jdbc:3.46.0.0'
+
+    // Computer Vision
+    implementation 'org.openpnp:opencv:4.9.0-0'
+
+    // ONNX Runtime — platform classifier added conditionally if needed
+    implementation 'com.microsoft.onnxruntime:onnxruntime:1.18.0'
+
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Optional: JVM args for JEP 489 Vector API (stretch goal)
+tasks.named('bootRun') {
+    jvmArgs = ['--add-modules', 'jdk.incubator.vector']
+}
