@@ -7,6 +7,7 @@ Edge AI inference, SQLite journaling, and a live HTML-over-the-wire dashboard â€
 [![Java 26](https://img.shields.io/badge/Java-26-orange)](https://openjdk.org/projects/jdk/26/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.16-brightgreen)](https://spring.io/projects/spring-boot)
 [![ONNX Runtime](https://img.shields.io/badge/ONNX-Runtime-blue)](https://onnxruntime.ai/)
+[![Just](https://img.shields.io/badge/Just-2022-blue)](https://just.systems/)
 
 ## What It Does
 
@@ -20,24 +21,25 @@ Edge AI inference, SQLite journaling, and a live HTML-over-the-wire dashboard â€
 
 ```bash
 # 1. Clone and build
-./gradlew build
+just build
 
 # 2. Run (laptop with webcam, or Pi with USB camera)
-./gradlew bootRun
+just run
 
 # 3. Open http://localhost:8081
+#    Login: wildtype (configurable via wildtype.password)
 ```
 
 To disable the vision pipeline and use the debug API instead:
 
 ```bash
-./gradlew bootRun --args='--wildtype.vision.enabled=false'
+just run-debug
 ```
 
 Inject a test sighting:
 
 ```bash
-curl -X POST 'http://localhost:8081/api/debug/sighting?species=Bird&confidence=0.91'
+just debug-sighting
 ```
 
 ## Hardware
@@ -207,19 +209,19 @@ No JSON APIs. No React. No polling. Just server-sent HTML fragments via Java Vir
 
 ```bash
 # Format all Java
-./gradlew spotlessApply
+just fmt
 
 # Run tests
-./gradlew test
+just test
 
 # Run with webcam
-./gradlew bootRun
+just run
 
 # Run without vision (debug API only)
-./gradlew bootRun --args='--wildtype.vision.enabled=false'
+just run-debug
 
 # Inject test data
-curl -X POST 'http://localhost:8081/api/debug/sighting?species=Bird&confidence=0.91'
+just debug-sighting
 ```
 
 ## Pi Deployment
@@ -229,6 +231,7 @@ See [`PI_TRANSFER.md`](PI_TRANSFER.md) for SD card setup, Java 26 install, proje
 ## Pages
 
 - `/` â€” Dashboard with live SSE updates, species badges, and sighting cards
+- `/login` - Login page
 - `/sightings/{id}` â€” Detail page for a single sighting with full-size image
 
 ## License
