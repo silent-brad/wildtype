@@ -2,9 +2,9 @@ package org.wildtype.inference;
 
 public class DetectionDispatcher {
 
-    public boolean isInteresting(int classId) {
+    public boolean isInteresting(int classId, float confidence) {
         return switch (classId) {
-            case 15 -> true;
+            case int id when id == 15 && confidence >= 0.40f -> true;
             default -> false;
         };
     }

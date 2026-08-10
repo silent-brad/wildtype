@@ -46,7 +46,7 @@ public class Pipeline implements AutoCloseable {
         try {
             List<OnnxDetector.Detection> detections = onnxDetector.detect(frame);
             for (var det : detections) {
-                if (!dispatcher.isInteresting(det.classId())) continue;
+                if (!dispatcher.isInteresting(det.classId(), det.confidence())) continue;
                 System.out.println("  → " + det.classId() + " @ " + String.format("%.2f", det.confidence()));
             }
         } catch (Exception e) {

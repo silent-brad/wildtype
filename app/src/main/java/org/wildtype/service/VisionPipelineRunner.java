@@ -90,10 +90,9 @@ public class VisionPipelineRunner implements AutoCloseable {
         try {
             var detections = onnxDetector.detect(frame);
             for (var det : detections) {
-                if (!dispatcher.isInteresting(det.classId())) continue;
+                if (!dispatcher.isInteresting(det.classId(), det.confidence())) continue;
 
                 SpeciesClassifier.Result species = classifyCrop(speciesClassifier, frame, det);
-                if (species.confidence() < 0.40f) continue;
 
                 String filename = "capture-" + Instant.now().toEpochMilli() + ".jpg";
                 String fsPath = captureDir.resolve(filename).toString();
