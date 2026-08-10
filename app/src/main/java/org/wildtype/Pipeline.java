@@ -22,7 +22,7 @@ public class Pipeline implements AutoCloseable {
         this.motionDetector = new MotionDetector(captureLoop, 25, 500);
         this.onnxDetector = new OnnxDetector("src/main/resources/models/mobilenet-ssd.onnx");
         this.dispatcher = new DetectionDispatcher();
-        this.captureDir = Path.of("src/test/resources/captures");
+        this.captureDir = Path.of("captures");
         Files.createDirectories(captureDir);
     }
 
@@ -46,9 +46,8 @@ public class Pipeline implements AutoCloseable {
         try {
             List<OnnxDetector.Detection> detections = onnxDetector.detect(frame);
             for (var det : detections) {
-                var sighting = dispatcher.dispatch(det);
-                if (!sighting.store()) continue;
-                System.out.println("  → " + sighting.species() + " @ " + String.format("%.2f", sighting.confidence()));
+                if (!dispatcher.isInteresting(det.classId())) continue;
+                System.out.println("  → " + det.classId() + " @ " + String.format("%.2f", det.confidence()));
             }
         } catch (Exception e) {
             System.err.println("Inference error: " + e.getMessage());

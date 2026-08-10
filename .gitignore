@@ -28,12 +28,18 @@ app/captures/*
 
 app/bin
 
-# OS
+# MacOS
 .DS_Store
 Thumbs.db
 
 # Logs
 *.log
+
+# Training artifacts
+datasets/
+runs/
+*.pt
+.env
 
 # Notes (project planning, not source)
 notes/

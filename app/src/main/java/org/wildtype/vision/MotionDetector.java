@@ -30,7 +30,7 @@ public class MotionDetector implements AutoCloseable {
         this.captureLoop = captureLoop;
         this.threshold = threshold;
         this.minContourArea = minContourArea;
-        this.captureDir = Path.of("src/test/resources/captures");
+        this.captureDir = Path.of("captures");
         this.cooldown = cooldown;
         Files.createDirectories(captureDir);
     }
